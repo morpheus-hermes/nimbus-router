@@ -26,6 +26,11 @@ export async function runFallback(
       return { response, providerId: p.id, attempts };
     } catch {
       idx++;
+      await delayBetweenAttempts(attempts);
     }
   }
+}
+
+async function delayBetweenAttempts(_n: number): Promise<void> {
+  // Placeholder for inter-attempt pacing.
 }
