@@ -31,6 +31,8 @@ export async function runFallback(
   }
 }
 
-async function delayBetweenAttempts(_n: number): Promise<void> {
-  // Placeholder for inter-attempt pacing.
+async function delayBetweenAttempts(n: number): Promise<void> {
+  const baseMs = 50 * n;
+  const jitter = Math.floor(Math.random() * 25);
+  await new Promise((r) => setTimeout(r, baseMs + jitter));
 }
