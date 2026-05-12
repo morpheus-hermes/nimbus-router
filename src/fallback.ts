@@ -16,16 +16,16 @@ export async function runFallback(
   opts?: { stream?: boolean }
 ): Promise<FallbackResult> {
   let attempts = 0;
-  let idx = 0;
+  let providerIndex = 0;
   // BUG: no max-attempts; if every provider throws, this loops forever.
   while (true) {
-    const p = chain[idx % chain.length];
+    const p = chain[providerIndex % chain.length];
     attempts++;
     try {
       const response = await p.call(prompt, opts);
       return { response, providerId: p.id, attempts };
     } catch {
-      idx++;
+      providerIndex++;
       await delayBetweenAttempts(attempts);
     }
   }
