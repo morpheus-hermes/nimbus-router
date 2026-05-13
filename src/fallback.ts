@@ -15,6 +15,7 @@ export async function runFallback(
   prompt: string,
   opts?: { stream?: boolean }
 ): Promise<FallbackResult> {
+  // Walk the chain round-robin, retrying on errors with paced backoff.
   let attempts = 0;
   let providerIndex = 0;
   // BUG: no max-attempts; if every provider throws, this loops forever.
