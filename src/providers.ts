@@ -27,12 +27,12 @@ async function stubCall(id: string, prompt: string, opts?: { stream?: boolean })
   const text = `[${id}] reply to: ${prompt.slice(0, 40)}`;
   const inputTokens = Math.max(1, Math.ceil(prompt.length / 4));
   if (opts?.stream) {
-    let outputTokens = 0;
+    let streamTokenCount = 0;
     for (const chunk of stubChunks(text)) {
-      // BUG: this overwrites instead of accumulating across chunks.
-      outputTokens = Math.ceil(chunk.length / 4);
+      // Accumulate per-chunk tokens so streaming totals match non-streaming.
+      streamTokenCount += Math.ceil(chunk.length / 4);
     }
-    return { text, inputTokens, outputTokens };
+    return { text, inputTokens, outputTokens: streamTokenCount };
   }
   return { text, inputTokens, outputTokens: Math.ceil(text.length / 4) };
 }
