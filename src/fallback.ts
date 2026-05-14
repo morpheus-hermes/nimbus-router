@@ -20,11 +20,11 @@ export async function runFallback(
   let providerIndex = 0;
   // BUG: no max-attempts; if every provider throws, this loops forever.
   while (true) {
-    const p = chain[providerIndex % chain.length];
+    const provider = chain[providerIndex % chain.length];
     attempts++;
     try {
-      const response = await p.call(prompt, opts);
-      return { response, providerId: p.id, attempts };
+      const response = await provider.call(prompt, opts);
+      return { response, providerId: provider.id, attempts };
     } catch {
       providerIndex++;
       await delayBetweenAttempts(attempts);
