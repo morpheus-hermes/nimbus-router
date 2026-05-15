@@ -16,20 +16,25 @@ export async function runFallback(
   opts?: { stream?: boolean }
 ): Promise<FallbackResult> {
   // Walk the chain round-robin, retrying on errors with paced backoff.
+  // Cap total attempts at 3x the chain length so a fully-down fleet surfaces
+  // an error instead of spinning forever.
+  const maxAttempts = Math.max(1, chain.length * 3);
   let attempts = 0;
   let providerIndex = 0;
-  // BUG: no max-attempts; if every provider throws, this loops forever.
-  while (true) {
+  let lastError: unknown;
+  while (attempts < maxAttempts) {
     const provider = chain[providerIndex % chain.length];
     attempts++;
     try {
       const response = await provider.call(prompt, opts);
       return { response, providerId: provider.id, attempts };
-    } catch {
+    } catch (err) {
+      lastError = err;
       providerIndex++;
       await delayBetweenAttempts(attempts);
     }
   }
+  throw new Error(`fallback chain exhausted after ${attempts} attempts: ${String(lastError)}`);
 }
 
 async function delayBetweenAttempts(n: number): Promise<void> {
