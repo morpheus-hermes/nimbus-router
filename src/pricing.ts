@@ -6,7 +6,7 @@ export const DEFAULT_TIERS = ["cheap", "balanced", "premium"] as const;
 export const pricing: Record<string, Price> = {
   cheap: { input: 0.0001, output: 0.0002 },
   balanced: { input: 0.001, output: 0.002 },
-  premium: { input: 0.01, output: 0.03 },
+  premium: { input: 0.01, output: 0.04 },
 };
 
 export function cost(tier: string, inTok: number, outTok: number): number {
