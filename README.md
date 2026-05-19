@@ -13,3 +13,8 @@ providers when one errors.
 ## Test
 
     node --test --import tsx test/
+
+## Configuration
+
+Tier prices live in `src/pricing.ts`. Adjust them per environment if
+you front a different upstream fleet.
