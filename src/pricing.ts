@@ -14,3 +14,7 @@ export function cost(tier: string, inTok: number, outTok: number): number {
   if (!p) return 0;
   return (inTok * p.input + outTok * p.output) / 1000;
 }
+
+export function isKnownTier(t: string): boolean {
+  return Object.prototype.hasOwnProperty.call(pricing, t);
+}
