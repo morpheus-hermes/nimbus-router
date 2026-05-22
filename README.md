@@ -18,3 +18,7 @@ providers when one errors.
 
 Tier prices live in `src/pricing.ts`. Adjust them per environment if
 you front a different upstream fleet.
+
+## Limitations
+
+Stubbed providers — no network calls. Pricing is illustrative.
