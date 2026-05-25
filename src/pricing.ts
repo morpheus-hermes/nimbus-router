@@ -18,3 +18,7 @@ export function cost(tier: string, inTok: number, outTok: number): number {
 export function isKnownTier(t: string): boolean {
   return Object.prototype.hasOwnProperty.call(pricing, t);
 }
+
+export function listTiers(): string[] {
+  return Object.keys(pricing);
+}
