@@ -11,3 +11,9 @@ test("routes balanced tier to nimbus-base", async () => {
 test("rejects unknown tier", async () => {
   await assert.rejects(() => route({ prompt: "ping", tier: "exotic" as any }));
 });
+
+import { isKnownTier, listTiers } from "../src/pricing.js";
+
+test("isKnownTier accepts the three default tiers", () => {
+  for (const t of listTiers()) assert.ok(isKnownTier(t));
+});
