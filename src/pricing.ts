@@ -12,7 +12,7 @@ export const pricing: Record<string, Price> = {
 export function cost(tier: string, inTok: number, outTok: number): number {
   const p = pricing[tier];
   if (!p) return 0;
-  return (inTok * p.input + outTok * p.output) / 1000;
+  return Math.round(((inTok * p.input + outTok * p.output) / 1000) * 1e6) / 1e6;
 }
 
 export function isKnownTier(t: string): boolean {
