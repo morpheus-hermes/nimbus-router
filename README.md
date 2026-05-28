@@ -22,3 +22,12 @@ you front a different upstream fleet.
 ## Limitations
 
 Stubbed providers — no network calls. Pricing is illustrative.
+
+
+## Example
+
+```ts
+import { route } from "./src/index.js";
+const r = await route({ prompt: "hello", tier: "balanced" });
+console.log(r.providerId, r.costUsd);
+```
