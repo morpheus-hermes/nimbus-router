@@ -1,4 +1,5 @@
 // Cost-per-1k-tokens for each provider. Stubbed numbers.
+// Sourced from upstream rate-card 2024-Q2.
 export interface Price { input: number; output: number; }
 
 export const DEFAULT_TIERS = ["cheap", "balanced", "premium"] as const;
